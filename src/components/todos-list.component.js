@@ -19,16 +19,14 @@ const Todo = props => (
 function compareDesc(a, b){
     var compare1 = a.todo_desc.toLowerCase(); 
     var compare2 = b.todo_desc.toLowerCase(); 
-    order = !order; 
     if (compare1 < compare2){
-        return -1; 
+        return (order ? -1 : 1);  
     }
     if (compare1 > compare2){
-        return 1; 
+        return (order ? 1 : -1); 
     } else {
         return 0;
     }
-    //return (order ? compare1 > compare2 : compare1 < compare2); 
 }
 
 function compareResp(a, b){
@@ -36,10 +34,10 @@ function compareResp(a, b){
     var compare1 = a.todo_responsible.toLowerCase(); 
     var compare2 = b.todo_responsible.toLowerCase(); 
     if (compare1 < compare2){
-        return -1; 
+        return (order ? -1 : 1); 
     }
     if (compare1 > compare2){
-        return 1; 
+        return (order ? 1: -1);  
     } else {
         return 0;
     }
@@ -47,27 +45,22 @@ function compareResp(a, b){
 
 function comparePrio(a, b){
     if (a.todo_prio < b.todo_prio){
-        return -1; 
+        return (order ?  1 :  -1); 
     }
     if (a.todo_prio > b.todo_prio){
-        return 1; 
+        return (order ?  -1 :  1);  
     } else {
         return 0;
     }
 }
-
 
 export default class TodosList extends Component {
     constructor(props){
         super(props);
         this.state = {
             todos: [],
-            sortBy: ''
+            sortBy: '',
         };
-        //this.setSortByDesc = this.setSortByDesc.bind(this);
-        //this.setSortByResp = this.setSortByResp.bind(this);
-        //this.setSortByPrio = this.setSortByPrio.bind(this);
-
     }
 
     componentDidMount() {
@@ -99,26 +92,33 @@ export default class TodosList extends Component {
             console.log(error);
         })
       } else {
-        console.log("fuck");   
+        console.log("State not changed");   
     }
 }
-
-    setSortByDesc = () => {
-        this.setState({sortBy: 'desc'});
-    }
-
-    setSortByResp = () => {
-        this.setState({sortBy: 'resp'})
-    }
-
-    setSortByPrio = () => {
-        this.setState({sortBy: 'prio'})
-    }
 
     todoList() {
         return this.state.todos.map(function(currentTodo, i){
             return <Todo todo={currentTodo} key={i} />;
         })
+    }
+
+    //toggle list order by property
+    togglePrio = () => {
+        order = !order;
+        var rev = this.state.todos.sort(comparePrio); 
+        this.setState({sortBy: 'prio', todos: rev})
+    }
+
+    toggleDesc = () => {
+        order = !order;
+        var rev = this.state.todos.sort(compareDesc); 
+        this.setState({sortBy: 'desc', todos: rev})
+    }
+
+    toggleResp = () => {
+        order = !order; 
+        var rev = this.state.todos.sort(compareResp); 
+        this.setState({sortBy: 'resp', todos: rev})
     }
 
     render() {
@@ -129,11 +129,11 @@ export default class TodosList extends Component {
                     <thead>
                         <tr>
                             <th onClick = {this.setSortByDesc}>Description 
-                                <i className="fa fa-fw fa-sort" onClick={this.setSortByDesc}></i></th>
+                                <i className="fa fa-fw fa-sort" onClick={()=> {this.toggleDesc()}}></i></th>
                             <th onClick = {this.setSortByResp}>Responsible
-                                <i className="fa fa-fw fa-sort" onClick={this.setSortByResp}></i></th>
+                                <i className="fa fa-fw fa-sort" onClick={()=> {this.toggleResp()}}></i></th>
                             <th onClick = {this.setSortByPrio}>Priority
-                                <i className="fa fa-fw fa-sort" onClick={this.setSortByPrio}></i></th>
+                                <i className="fa fa-fw fa-sort" onClick={()=> {this.togglePrio()}}></i></th>
                             <th></th>
                         </tr>
                     </thead>

@@ -7,14 +7,12 @@ import CreateTodo from "./components/create-todo.component";
 import EditTodo from "./components/edit-todo.component";
 import TodosList from "./components/todos-list.component";
 
-import logo from "./logo.png";
-
 class App extends Component {
   render() {
     return (
       <Router>
         <div className="container">
-          <nav className="navbar navbar-expand-lg navbar-inverse navbar-header">
+          <nav className="navbar navbar-expand-lg navbar-inverse bg-dark">
             
             <Link to="/" className="navbar-brand">MERN-Stack Todo App</Link>
             <div className="collpase navbar-collapse">

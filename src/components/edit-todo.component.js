@@ -103,40 +103,16 @@ export default class EditTodo extends Component {
                                 />
                     </div>
                     <div className="form-group">
-                        <div className="form-check form-check-inline">
-                            <input  className="form-check-input" 
-                                    type="radio" 
-                                    name="priorityOptions" 
-                                    id="priorityLow" 
-                                    value="Low"
-                                    checked={this.state.todo_prio==='Low'} 
-                                    onChange={this.onChangeTodoPriority}
-                                    />
-                            <label className="form-check-label">Low</label>
-                        </div>
-                        <div className="form-check form-check-inline">
-                            <input  className="form-check-input" 
-                                    type="radio" 
-                                    name="priorityOptions" 
-                                    id="priorityMedium" 
-                                    value="Medium" 
-                                    checked={this.state.todo_prio==='Medium'} 
-                                    onChange={this.onChangeTodoPriority}
-                                    />
-                            <label className="form-check-label">Medium</label>
-                        </div>
-                        <div className="form-check form-check-inline">
-                            <input  className="form-check-input" 
-                                    type="radio" 
-                                    name="priorityOptions" 
-                                    id="priorityHigh" 
-                                    value="High" 
-                                    checked={this.state.todo_prio==='High'} 
-                                    onChange={this.onChangeTodoPriority}
-                                    />
-                            <label className="form-check-label">High</label>
-                        </div>
+                    Priority:<br></br>
+                        <select id="priorityOptions" onChange={this.onChangeTodoPriority}>
+                            <option value = "1"> 1 </option>
+                            <option value = "2"> 2 </option>
+                            <option value = "3"> 3 </option>
+                            <option value = "4"> 4 </option>
+                            <option value = "5"> 5 </option>
+                        </select>
                     </div>
+
                     <div className="form-check">
                         <input  className="form-check-input"
                                 id="completedCheckbox"
